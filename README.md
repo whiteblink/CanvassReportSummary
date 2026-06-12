@@ -65,24 +65,20 @@ src/main/java/com/whiteblink/
 
 ## Build & deploy
 
-Build the shaded jar:
+1. **Build the shaded jar:**
 
-```
-mvn clean package shade:shade
-```
+   ```bash
+   mvn clean package shade:shade
+   ```
 
-This produces a fat jar under `target/` containing all dependencies, ready to upload to Lambda.
+   This produces a fat jar under `target/` containing all dependencies, ready to upload to Lambda.
 
-Create (or update) a Lambda function in AWS using the resulting jar.
+2. **Create (or update) a Lambda function** in AWS using the resulting jar.
+   - Runtime: Java 11 (or any supported Java runtime ≥ 9)
+   - Handler: `com.whiteblink.App::handleRequest`
 
-Runtime: Java 11 (or any supported Java runtime ≥ 9)
-
-Handler: `com.whiteblink.App::handleRequest`
-
-Expose the function over HTTP using:
-
-Lambda Function URL — enable it on the function, choose an auth type (NONE), and call the generated URL directly with a POST. 
-Make sure binary / `multipart/form-data` payloads are delivered base64‑encoded (the handler base64‑decodes the request body).
+3**Expose the function over HTTP** using:
+   - **Lambda Function URL** — enable it on the function, choose an auth type (`NONE`), and call the generated URL directly with a `POST`. Make sure binary / `multipart/form-data` payloads are delivered base64‑encoded (the handler base64‑decodes the request body).
 
 ## API contract
 
